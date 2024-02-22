@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+// use App\Http\Requests\StoreProductRequest;
+// use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;    
 use Illuminate\Http\Request;
+
 
 class ProductController extends Controller
 {
@@ -13,12 +19,13 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $data = Product::all();
-        return response() -> json(
-            [
-            'message' => 'show Product Data',
-            'data' => $data
-            ]
+        $products = Product::all();
+
+        Log::info($products);
+
+        return Inertia::render('Jo_product/show_products', [
+            'products' => $products
+        ]
         );
     }
 
